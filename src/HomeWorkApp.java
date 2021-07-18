@@ -1,43 +1,41 @@
 public class HomeWorkApp {
     public static void main(String[] args) {
-        printThreeWords();
-        checkSumSign();
-        printColor();
-        compareNumbers();
+
+        int a = 4;
+        int b = 8;
+        boolean AB = compareSum(a, b);
+        System.out.println(AB);
+
+        printNumber(-3);
+
+        boolean x = printNumber2(3);
+        System.out.println(x);
+
+        printMessage(3, "Something");
     }
 
-    public static void printThreeWords() {
-        System.out.println("Orange\nBanana\nApple");
+    public static boolean compareSum(int a, int b) {
+        int AB = a + b;
+        return (AB >= 10 && 20 >= AB);
     }
 
-    public static void checkSumSign() {
-        int a = -1;
-        int b = 0;
-        if (a + b >= 0) {
-            System.out.println("Сумма положительная");
+    public static void printNumber(int number) {
+        if (number >= 0) {
+            System.out.println("Это число положительное");
         } else {
-            System.out.println("Сумма отрицательная");
+            System.out.println("Это число отрицательное");
         }
     }
 
-    public static void printColor() {
-        int value = 101;
-        if (value <= 0) {
-            System.out.println("Красный");
-        } else if (value > 0 && value <= 100) {
-            System.out.println("Желтый");
-        } else if (value > 100) {
-            System.out.println("Зеленый");
-        }
+    public static boolean printNumber2(int chislo) {
+        return (chislo < 0);
     }
 
-    public static void compareNumbers() {
-        int a = 1;
-        int b = 0;
-        if (a >= b) {
-            System.out.println("a >= b");
-        } else {
-            System.out.println("a < b");
+    public static void printMessage(int count, String message) {
+        int y = 0;
+        while (y < count) {
+            System.out.println(message);
+            y++;
         }
     }
 }
