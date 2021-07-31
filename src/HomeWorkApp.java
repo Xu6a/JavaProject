@@ -1,71 +1,107 @@
-import java.util.Arrays;
-
+import java.util.Random;
+import java.util.Scanner;
 public class HomeWorkApp {
+    public static int SIZE = 3;
+    public static int DOTS_TO_WIN = 3;
+    public static final char DOT_EMPTY = '•';
+    public static final char DOT_X = 'X';
+    public static final char DOT_O = 'O';
+    public static char[][] map;
+    public static Scanner sc = new Scanner(System.in);
+    public static Random rand = new Random();
     public static void main(String[] args) {
-
-        int[] arr = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
-        zadanie1(arr);
-        System.out.println(Arrays.toString(arr));
-
-        int[] arr2 = new int [100];
-        zadanie2(arr2);
-        System.out.println(Arrays.toString(arr2));
-
-        int[] arr3 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-        zadanie3(arr3);
-        System.out.println(Arrays.toString(arr3));
-
-        int[][] arr4 = new int [5][5];
-        zadanie4(arr4);
-        doubleArray(arr4);
-
-        int initialValue = 3;
-        int size = 7;
-        int[] arr5 = zadanie5(initialValue, size);
-        System.out.println(Arrays.toString(arr5));
-
+        initMap();
+        printMap();
+        while (true) {
+            humanTurn();
+            printMap();
+            if (checkWin(DOT_X)) {
+                System.out.println("Поздравляю! Вы победили!");
+                break;
+            }
+            if (isMapFull()) {
+                System.out.println("Ничья");
+                break;
+            }
+            aiTurn();
+            printMap();
+            if (checkWin(DOT_O)) {
+                System.out.println("К сожалению вы проиграли!");
+                break;
+            }
+            if (isMapFull()) {
+                System.out.println("Ничья");
+                break;
+            }
+        }
+        System.out.println("Game over");
     }
 
-    public static void zadanie1(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 1) {
-                arr[i] = 0;
-            } else {
-                arr[i] = 1;
+    static boolean checkWin(char symb) {
+        for (int i = 0; i < 3; i++)
+            if ((map[i][0] == symb && map[i][1] == symb && map[i][2] == symb) || (map[0][i] == symb && map[1][i] == symb && map[2][i] == symb))
+                return true;
+            if ((map[0][0] == symb && map[1][1] == symb && map[2][2] == symb) || (map[2][0] == symb && map[1][1] == symb && map[0][2] == symb))
+                return true;
+        return false;
+    }
+
+    public static boolean isMapFull() {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (map[i][j] == DOT_EMPTY) return false;
+            }
+        }
+        return true;
+    }
+
+    public static void aiTurn() {
+        int x, y;
+        do {
+            x = rand.nextInt(SIZE);
+            y = rand.nextInt(SIZE);
+        } while (!isCellValid(x, y));
+        System.out.println("Компьютер походил в точку " + (x + 1) + " " + (y + 1));
+        map[y][x] = DOT_O;
+    }
+
+    public static void humanTurn() {
+        int x, y;
+        do {
+            System.out.println("Ваш ход. Введите координаты в формате X Y");
+            x = sc.nextInt() - 1;
+            y = sc.nextInt() - 1;
+        } while (!isCellValid(x, y));
+        map[y][x] = DOT_X;
+    }
+
+    public static boolean isCellValid(int x, int y) {
+        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
+        if (map[y][x] == DOT_EMPTY) return true;
+        return false;
+    }
+
+    public static void initMap() {
+        map = new char[SIZE][SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                map[i][j] = DOT_EMPTY;
             }
         }
     }
 
-    public static void zadanie2(int[] arr2) {
-        for (int i=0; i < arr2.length; i++) {
-            arr2[i] = i + 1;
+    public static void printMap() {
+        for (int i = 0; i <= SIZE; i++) {
+            System.out.print(i + " ");
         }
-    }
-
-    public static void zadanie3(int[] arr3) {
-        for (int i = 0; i < arr3.length; i++) {
-            if (arr3[i] < 6) {
-                arr3[i] = arr3[i] * 2;
+        System.out.println();
+        for (int i = 0; i < SIZE; i++) {
+            System.out.print((i + 1) + " ");
+            for (int j = 0; j < SIZE; j++) {
+                System.out.print(map[i][j] + " ");
             }
+            System.out.println();
         }
-    }
-
-    public static void zadanie4(int[][] arr4) {
-        for (int i = 0; i < arr4.length; i++) {
-            arr4[i][i] = 1;
-        }
-    }
-    public static void doubleArray(int[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(Arrays.toString(array[i]));
-        }
-    }
-
-    public static int[] zadanie5(int initialValue, int len) {
-        int[] arr5 = new int[len];
-        for (int i = 0; i < arr5.length; i++) {
-            arr5[i] = initialValue;
-        }
-        return arr5;
+        System.out.println();
     }
 }
