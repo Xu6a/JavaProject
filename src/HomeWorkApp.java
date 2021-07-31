@@ -1,41 +1,71 @@
+import java.util.Arrays;
+
 public class HomeWorkApp {
     public static void main(String[] args) {
 
-        int a = 4;
-        int b = 8;
-        boolean AB = compareSum(a, b);
-        System.out.println(AB);
+        int[] arr = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
+        zadanie1(arr);
+        System.out.println(Arrays.toString(arr));
 
-        printNumber(-3);
+        int[] arr2 = new int [100];
+        zadanie2(arr2);
+        System.out.println(Arrays.toString(arr2));
 
-        boolean x = printNumber2(3);
-        System.out.println(x);
+        int[] arr3 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
+        zadanie3(arr3);
+        System.out.println(Arrays.toString(arr3));
 
-        printMessage(3, "Something");
+        int[][] arr4 = new int [5][5];
+        zadanie4(arr4);
+        doubleArray(arr4);
+
+        int initialValue = 3;
+        int size = 7;
+        int[] arr5 = zadanie5(initialValue, size);
+        System.out.println(Arrays.toString(arr5));
+
     }
 
-    public static boolean compareSum(int a, int b) {
-        int AB = a + b;
-        return (AB >= 10 && 20 >= AB);
-    }
-
-    public static void printNumber(int number) {
-        if (number >= 0) {
-            System.out.println("Это число положительное");
-        } else {
-            System.out.println("Это число отрицательное");
+    public static void zadanie1(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 1) {
+                arr[i] = 0;
+            } else {
+                arr[i] = 1;
+            }
         }
     }
 
-    public static boolean printNumber2(int chislo) {
-        return (chislo < 0);
+    public static void zadanie2(int[] arr2) {
+        for (int i=0; i < arr2.length; i++) {
+            arr2[i] = i + 1;
+        }
     }
 
-    public static void printMessage(int count, String message) {
-        int y = 0;
-        while (y < count) {
-            System.out.println(message);
-            y++;
+    public static void zadanie3(int[] arr3) {
+        for (int i = 0; i < arr3.length; i++) {
+            if (arr3[i] < 6) {
+                arr3[i] = arr3[i] * 2;
+            }
         }
+    }
+
+    public static void zadanie4(int[][] arr4) {
+        for (int i = 0; i < arr4.length; i++) {
+            arr4[i][i] = 1;
+        }
+    }
+    public static void doubleArray(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(Arrays.toString(array[i]));
+        }
+    }
+
+    public static int[] zadanie5(int initialValue, int len) {
+        int[] arr5 = new int[len];
+        for (int i = 0; i < arr5.length; i++) {
+            arr5[i] = initialValue;
+        }
+        return arr5;
     }
 }
